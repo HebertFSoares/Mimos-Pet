@@ -5,6 +5,9 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/eurekaserver/pom.xml" />
+        <option value="$PROJECT_DIR$/ms_client/pom.xml" />
+        <option value="$PROJECT_DIR$/ms_gateway/pom.xml" />
+        <option value="$PROJECT_DIR$/ms_produtos/pom.xml" />
       </list>
     </option>
   </component>
