@@ -1,12 +1,19 @@
 package io.github.hebertfsoares.ms_produtos.web;
 
+import io.github.hebertfsoares.ms_produtos.domain.entities.Clients;
 import io.github.hebertfsoares.ms_produtos.domain.enums.ProductCategory;
+import io.github.hebertfsoares.ms_produtos.domain.exception.DadosClientException;
+import io.github.hebertfsoares.ms_produtos.domain.exception.ErroSolicitacaoClientException;
+import io.github.hebertfsoares.ms_produtos.domain.exception.ErrorMicrosericeException;
 import io.github.hebertfsoares.ms_produtos.domain.service.ProductService;
+import io.github.hebertfsoares.ms_produtos.dto.DataClientMQ;
 import io.github.hebertfsoares.ms_produtos.dto.ProductReponse;
 import io.github.hebertfsoares.ms_produtos.dto.ProductRequest;
+import io.github.hebertfsoares.ms_produtos.dto.ProtocoloGetClient;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -46,5 +53,21 @@ public class ProductController {
     public ResponseEntity<ProductReponse> deleteProduct(@PathVariable Long id){
         productService.deleteProduct(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/clients/{cpf}")
+    public ResponseEntity<Clients> queryClient(@PathVariable String cpf) throws DadosClientException, ErrorMicrosericeException {
+        Clients clients = productService.getClient(cpf);
+        return ResponseEntity.ok(clients);
+    }
+
+    @PostMapping("/getClient")
+    public ResponseEntity solicitarClient(@RequestBody DataClientMQ dataClientMQ){
+        try{
+            ProtocoloGetClient protocoloGetClient = productService.getMsClient(dataClientMQ);
+            return ResponseEntity.ok(protocoloGetClient);
+        }catch (ErroSolicitacaoClientException e){
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
     }
 }

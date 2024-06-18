@@ -1,14 +1,23 @@
 package io.github.hebertfsoares.ms_produtos.domain.service;
 
+import feign.FeignException;
+import io.github.hebertfsoares.ms_produtos.config.mq.MsClientPublisher;
+import io.github.hebertfsoares.ms_produtos.domain.entities.Clients;
 import io.github.hebertfsoares.ms_produtos.domain.entities.Product;
 import io.github.hebertfsoares.ms_produtos.domain.enums.ProductCategory;
+import io.github.hebertfsoares.ms_produtos.domain.exception.DadosClientException;
+import io.github.hebertfsoares.ms_produtos.domain.exception.ErroSolicitacaoClientException;
+import io.github.hebertfsoares.ms_produtos.domain.exception.ErrorMicrosericeException;
+import io.github.hebertfsoares.ms_produtos.domain.infra.clients.ClientResource;
 import io.github.hebertfsoares.ms_produtos.domain.repository.ProductRepository;
-import io.github.hebertfsoares.ms_produtos.dto.ProductReponse;
-import io.github.hebertfsoares.ms_produtos.dto.ProductRequest;
+import io.github.hebertfsoares.ms_produtos.dto.*;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -16,6 +25,8 @@ import java.util.stream.Collectors;
 public class ProductService {
 
     private final ProductRepository productRepository;
+    private final ClientResource clientResource;
+    private final MsClientPublisher msClientPublisher;
 
     public ProductReponse saveProduct(ProductRequest productRequest){
         Product product = new Product(
@@ -92,5 +103,32 @@ public class ProductService {
             throw new RuntimeException("Product not found");
         }
         productRepository.deleteById(id);
+    }
+
+    public Clients getClient(String cpf) throws DadosClientException, ErrorMicrosericeException {
+        try {
+            ResponseEntity<DataClient> dadosClients = clientResource.getClientByCpf(cpf);
+            return Clients
+                    .builder()
+                    .client(dadosClients.getBody())
+                    .build();
+        } catch (FeignException.FeignClientException e) {
+            int status = e.status();
+            if(HttpStatus.NOT_FOUND.value() == status){
+                throw new DadosClientException();
+            }
+            throw new ErrorMicrosericeException(e.getMessage(), status);
+
+        }
+    }
+
+    public ProtocoloGetClient getMsClient(DataClientMQ dados){
+        try{
+            msClientPublisher.getClient(dados);
+            var protocolo = UUID.randomUUID().toString();
+            return new ProtocoloGetClient(protocolo);
+        }catch (Exception e){
+            throw new ErroSolicitacaoClientException(e.getMessage());
+        }
     }
 }
