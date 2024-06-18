@@ -1,11 +1,13 @@
 package io.github.hebertfsoares.ms_animals.domain.service;
 
 import io.github.hebertfsoares.ms_animals.domain.entities.Animals;
+import io.github.hebertfsoares.ms_animals.domain.entities.Client;
 import io.github.hebertfsoares.ms_animals.domain.enums.AnimalSize;
 import io.github.hebertfsoares.ms_animals.domain.enums.AnimalSpecies;
 import io.github.hebertfsoares.ms_animals.domain.enums.AnimalStatus;
 import io.github.hebertfsoares.ms_animals.domain.enums.Gender;
 import io.github.hebertfsoares.ms_animals.domain.repository.AnimalsRepository;
+import io.github.hebertfsoares.ms_animals.domain.repository.ClientRepository;
 import io.github.hebertfsoares.ms_animals.dto.AnimalsReponse;
 import io.github.hebertfsoares.ms_animals.dto.AnimalsRequest;
 import lombok.AllArgsConstructor;
@@ -21,33 +23,43 @@ import java.util.stream.Collectors;
 public class AnimalsService {
 
     private final AnimalsRepository animalsRepository;
+    private final ClientRepository clientRepository;
 
-    public AnimalsReponse saveAnimals(AnimalsRequest animalsRequest){
-        Animals animals = new Animals(
-                animalsRequest.name(),
-                animalsRequest.species(),
-                animalsRequest.breed(),
-                animalsRequest.gender(),
-                animalsRequest.size(),
-                animalsRequest.years(),
-                animalsRequest.castrated(),
-                animalsRequest.photoUrl(),
-                animalsRequest.history()
-        );
+    public AnimalsReponse saveAnimal(AnimalsRequest animalsRequest) {
+        Client client = clientRepository.findById(animalsRequest.clientId())
+                .orElseThrow(() -> new RuntimeException("Client not found"));
 
-        Animals savedAnimals = animalsRepository.save(animals);
+        Animals animal = new Animals();
+        animal.setName(animalsRequest.name());
+        animal.setSpecies(animalsRequest.species());
+        animal.setBreed(animalsRequest.breed());
+        animal.setGender(animalsRequest.gender());
+        animal.setSize(animalsRequest.size());
+        animal.setYears(animalsRequest.years());
+        animal.setCastrated(animalsRequest.castrated());
+        animal.setPhotoUrl(animalsRequest.photoUrl());
+        animal.setHistory(animalsRequest.history());
+        animal.setClientId(client.getId());
+        animal.setClientName(client.getName());
+        animal.setClientCpf(client.getCpf());
+
+        animalsRepository.save(animal);
+
         return new AnimalsReponse(
-                savedAnimals.getId(),
-                savedAnimals.getName(),
-                savedAnimals.getSpecies(),
-                savedAnimals.getBreed(),
-                savedAnimals.getGender(),
-                savedAnimals.getSize(),
-                savedAnimals.getYears(),
-                savedAnimals.getCastrated(),
-                savedAnimals.getPhotoUrl(),
-                savedAnimals.getHistory(),
-                savedAnimals.getStatus()
+                animal.getId(),
+                animal.getName(),
+                animal.getSpecies(),
+                animal.getBreed(),
+                animal.getGender(),
+                animal.getSize(),
+                animal.getYears(),
+                animal.getCastrated(),
+                animal.getPhotoUrl(),
+                animal.getHistory(),
+                animal.getStatus(),
+                animal.getClientId(),
+                animal.getClientCpf(),
+                animal.getClientName()
         );
     }
 
@@ -65,7 +77,10 @@ public class AnimalsService {
                 animals.getCastrated(),
                 animals.getPhotoUrl(),
                 animals.getHistory(),
-                animals.getStatus()
+                animals.getStatus(),
+                animals.getClientId(),
+                animals.getClientCpf(),
+                animals.getClientName()
         );
     }
 
@@ -84,7 +99,10 @@ public class AnimalsService {
                 animals.getCastrated(),
                 animals.getPhotoUrl(),
                 animals.getHistory(),
-                animals.getStatus()
+                animals.getStatus(),
+                animals.getClientId(),
+                animals.getClientCpf(),
+                animals.getClientName()
         );
     }
 
@@ -103,7 +121,10 @@ public class AnimalsService {
                 animals.getCastrated(),
                 animals.getPhotoUrl(),
                 animals.getHistory(),
-                animals.getStatus()
+                animals.getStatus(),
+                animals.getClientId(),
+                animals.getClientCpf(),
+                animals.getClientName()
         );
     }
 
@@ -131,7 +152,10 @@ public class AnimalsService {
                 savedAnimal.getCastrated(),
                 savedAnimal.getPhotoUrl(),
                 savedAnimal.getHistory(),
-                savedAnimal.getStatus()
+                savedAnimal.getStatus(),
+                savedAnimal.getClientId(),
+                savedAnimal.getClientCpf(),
+                savedAnimal.getClientName()
         );
     }
 
@@ -150,7 +174,11 @@ public class AnimalsService {
                 animals.getCastrated(),
                 animals.getPhotoUrl(),
                 animals.getHistory(),
-                animals.getStatus()
+                animals.getStatus(),
+                animals.getClientId(),
+                animals.getClientCpf(),
+                animals.getClientName()
+
         );
     }
 
@@ -169,7 +197,10 @@ public class AnimalsService {
                 animals.getCastrated(),
                 animals.getPhotoUrl(),
                 animals.getHistory(),
-                animals.getStatus()
+                animals.getStatus(),
+                animals.getClientId(),
+                animals.getClientCpf(),
+                animals.getClientName()
         );
     }
 
@@ -187,7 +218,10 @@ public class AnimalsService {
                         allAnimals.getCastrated(),
                         allAnimals.getPhotoUrl(),
                         allAnimals.getHistory(),
-                        allAnimals.getStatus()
+                        allAnimals.getStatus(),
+                        allAnimals.getClientId(),
+                        allAnimals.getClientCpf(),
+                        allAnimals.getClientName()
                 ))
                 .collect(Collectors.toList());
     }

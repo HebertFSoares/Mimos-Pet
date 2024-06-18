@@ -7,5 +7,5 @@ import io.github.hebertfsoares.ms_animals.domain.enums.Gender;
 
 import java.awt.*;
 
-public record AnimalsReponse(Long id, String name, AnimalSpecies species, String breed, Gender gender, AnimalSize size, Integer years, Boolean Castrated, String photoUrl, String history, AnimalStatus status) {
+public record AnimalsReponse(Long id, String name, AnimalSpecies species, String breed, Gender gender, AnimalSize size, Integer years, Boolean Castrated, String photoUrl, String history, AnimalStatus status, Long ClientId, String ClientCpf, String ClientName) {
 }
