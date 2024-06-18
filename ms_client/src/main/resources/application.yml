@@ -1,6 +1,11 @@
 spring:
   application:
     name: msclientes
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
 
 server:
   port: 0
@@ -18,3 +23,7 @@ jwt:
     key: classpath:public.pem
   private:
     key: classpath:private.pem
+
+mq:
+  queue:
+    client_registration: client_registration_queue

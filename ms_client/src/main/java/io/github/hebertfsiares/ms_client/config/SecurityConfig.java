@@ -34,7 +34,6 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
         http
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/clients/**").permitAll()
@@ -48,19 +47,19 @@ public class SecurityConfig {
     }
 
     @Bean
-    public JwtDecoder jwtDecoder(){
+    public JwtDecoder jwtDecoder() {
         return NimbusJwtDecoder.withPublicKey(publicKey).build();
     }
 
     @Bean
-    public JwtEncoder jwtEncoder(){
+    public JwtEncoder jwtEncoder() {
         JWK jwk = new RSAKey.Builder(this.publicKey).privateKey(privateKey).build();
         var jwks = new ImmutableJWKSet<>(new JWKSet(jwk));
         return new NimbusJwtEncoder(jwks);
     }
 
     @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder(){
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }
