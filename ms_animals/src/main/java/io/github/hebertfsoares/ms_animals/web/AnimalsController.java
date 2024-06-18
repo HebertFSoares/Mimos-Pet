@@ -22,9 +22,9 @@ public class AnimalsController {
     private final AnimalsService animalsService;
 
     @PostMapping("/register")
-    public ResponseEntity<AnimalsReponse> registerAnimals(@RequestBody AnimalsRequest animalsRequest){
-        AnimalsReponse animalsReponse = animalsService.saveAnimals(animalsRequest);
-        return ResponseEntity.status(HttpStatus.CREATED).body(animalsReponse);
+    public ResponseEntity<AnimalsReponse> registerAnimal(@RequestBody AnimalsRequest animalsRequest) {
+        AnimalsReponse animalResponse = animalsService.saveAnimal(animalsRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).body(animalResponse);
     }
 
     @GetMapping("/{id}")

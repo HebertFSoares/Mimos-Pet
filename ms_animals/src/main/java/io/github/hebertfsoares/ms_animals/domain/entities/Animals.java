@@ -41,6 +41,9 @@ public class Animals {
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private AnimalStatus status = AnimalStatus.AVAILABLE;
+    private Long clientId;
+    private String clientName;
+    private String clientCpf;
 
     public Animals(String name, AnimalSpecies species, String breed, Gender gender, AnimalSize size, Integer years, Boolean castrated, String photoUrl, String history) {
         this.name = name;
