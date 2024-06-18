@@ -1,27 +1,25 @@
 package io.github.hebertfsiares.ms_client.domain.services;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import io.github.hebertfsiares.ms_client.config.mq.ClientPublisher;
 import io.github.hebertfsiares.ms_client.domain.entities.Client;
 import io.github.hebertfsiares.ms_client.domain.enums.roleClient;
 import io.github.hebertfsiares.ms_client.domain.repository.ClientRepository;
-import io.github.hebertfsiares.ms_client.dto.ClientRequest;
-import io.github.hebertfsiares.ms_client.dto.ClientResponse;
-import io.github.hebertfsiares.ms_client.dto.ClientUpdateRequest;
+import io.github.hebertfsiares.ms_client.dto.*;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 @Service
 public class ClientService {
 
     private final ClientRepository clientRepository;
     private final BCryptPasswordEncoder passwordEncoder;
-
-    public ClientService(ClientRepository clientRepository, BCryptPasswordEncoder passwordEncoder) {
-        this.clientRepository = clientRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
+    private final ClientPublisher clientPublisher;
 
     public ClientResponse registerClient(ClientRequest clientRequest) {
         Client client = new Client(
@@ -31,9 +29,19 @@ public class ClientService {
                 clientRequest.cpf(),
                 clientRequest.address(),
                 clientRequest.phone(),
-                roleClient.CLIENT
+                roleClient.ADMIN
         );
         Client savedClient = clientRepository.save(client);
+
+        // Enviar informações do cliente ao RabbitMQ
+        try {
+            ClientForAnimals clientForAnimals = new ClientForAnimals(savedClient.getId(), savedClient.getName(), savedClient.getCpf());
+            clientPublisher.sendClientInfo(clientForAnimals);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            // Tratar erro de envio de mensagem
+        }
+
         return new ClientResponse(
                 savedClient.getId(),
                 savedClient.getName(),
@@ -86,6 +94,7 @@ public class ClientService {
         client.setCpf(clientUpdateRequest.cpf());
         client.setAddress(clientUpdateRequest.address());
         client.setPhone(clientUpdateRequest.phone());
+        client.setRole(clientUpdateRequest.role());
 
         Client updatedClient = clientRepository.save(client);
 
