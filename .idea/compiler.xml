@@ -9,10 +9,12 @@
         <outputRelativeToContentRoot value="true" />
         <module name="eurekaserver" />
         <module name="ms_animals" />
-        <module name="ms_client" />
         <module name="msproduct" />
-        <module name="ms_produtos" />
         <module name="ms_gateway" />
+        <module name="ms_adoptions" />
+        <module name="ms_sales" />
+        <module name="ms_client" />
+        <module name="ms_produtos" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -22,10 +24,12 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="eurekaserver" options="-parameters" />
+      <module name="ms_adoptions" options="-parameters" />
       <module name="ms_animals" options="-parameters" />
       <module name="ms_client" options="-parameters" />
       <module name="ms_gateway" options="-parameters" />
       <module name="ms_produtos" options="-parameters" />
+      <module name="ms_sales" options="-parameters" />
       <module name="msproduct" options="-parameters" />
     </option>
   </component>
