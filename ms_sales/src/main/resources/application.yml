@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: mssales
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+server:
+  port: 0
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+
+mq:
+  queue:
+    client_registration: client_registration_queue
+    product_registration: product_registration_queue
