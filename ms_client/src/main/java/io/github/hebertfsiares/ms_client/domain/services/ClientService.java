@@ -33,13 +33,11 @@ public class ClientService {
         );
         Client savedClient = clientRepository.save(client);
 
-        // Enviar informações do cliente ao RabbitMQ
         try {
             ClientForAnimals clientForAnimals = new ClientForAnimals(savedClient.getId(), savedClient.getName(), savedClient.getCpf());
             clientPublisher.sendClientInfo(clientForAnimals);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
-            // Tratar erro de envio de mensagem
         }
 
         return new ClientResponse(

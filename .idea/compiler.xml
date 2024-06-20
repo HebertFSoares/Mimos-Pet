@@ -7,9 +7,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-<<<<<<< Updated upstream
         <module name="eurekaserver" />
         <module name="ms_animals" />
+        <module name="msproduct" />
+        <module name="ms_gateway" />
+        <module name="ms_adoptions" />
+        <module name="ms_client" />
         <module name="msproduct" />
         <module name="ms_gateway" />
         <module name="ms_adoptions" />
@@ -20,14 +23,13 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="ms_produtos" target="21" />
-=======
         <module name="ms_gateway" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="ms_adoptions" target="21" />
       <module name="ms_sales" target="21" />
->>>>>>> Stashed changes
+      <module name="ms_sales" target="21" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -37,11 +39,7 @@
       <module name="ms_animals" options="-parameters" />
       <module name="ms_client" options="-parameters" />
       <module name="ms_gateway" options="-parameters" />
-<<<<<<< Updated upstream
-      <module name="ms_produtos" options="-parameters" />
       <module name="ms_sales" options="-parameters" />
-=======
->>>>>>> Stashed changes
       <module name="msproduct" options="-parameters" />
     </option>
   </component>

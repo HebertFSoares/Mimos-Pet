@@ -4,6 +4,7 @@ import io.github.hebertfsiares.ms_client.domain.services.ClientService;
 import io.github.hebertfsiares.ms_client.dto.ClientRequest;
 import io.github.hebertfsiares.ms_client.dto.ClientResponse;
 import io.github.hebertfsiares.ms_client.dto.ClientUpdateRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +24,7 @@ public class ClientController {
     @PostMapping("/register")
     public ResponseEntity<ClientResponse> registerClient(@RequestBody ClientRequest clientRequest) {
         ClientResponse clientResponse = clientService.registerClient(clientRequest);
-        return ResponseEntity.ok(clientResponse);
+        return ResponseEntity.status(HttpStatus.CREATED).body(clientResponse);
     }
 
     @GetMapping("/{cpf}")
