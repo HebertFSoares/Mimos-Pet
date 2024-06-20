@@ -1,5 +1,7 @@
 package io.github.hebertfsoares.ms_animals.domain.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import io.github.hebertfsoares.ms_animals.config.mq.AnimalPublisher;
 import io.github.hebertfsoares.ms_animals.domain.entities.Animals;
 import io.github.hebertfsoares.ms_animals.domain.entities.Client;
 import io.github.hebertfsoares.ms_animals.domain.enums.AnimalSize;
@@ -8,6 +10,7 @@ import io.github.hebertfsoares.ms_animals.domain.enums.AnimalStatus;
 import io.github.hebertfsoares.ms_animals.domain.enums.Gender;
 import io.github.hebertfsoares.ms_animals.domain.repository.AnimalsRepository;
 import io.github.hebertfsoares.ms_animals.domain.repository.ClientRepository;
+import io.github.hebertfsoares.ms_animals.dto.AnimalForAdoption;
 import io.github.hebertfsoares.ms_animals.dto.AnimalsReponse;
 import io.github.hebertfsoares.ms_animals.dto.AnimalsRequest;
 import lombok.AllArgsConstructor;
@@ -24,6 +27,7 @@ public class AnimalsService {
 
     private final AnimalsRepository animalsRepository;
     private final ClientRepository clientRepository;
+    private final AnimalPublisher animalPublisher;
 
     public AnimalsReponse saveAnimal(AnimalsRequest animalsRequest) {
         Client client = clientRepository.findById(animalsRequest.clientId())
@@ -45,6 +49,13 @@ public class AnimalsService {
 
         animalsRepository.save(animal);
 
+        try {
+            AnimalForAdoption animalForAdoption = new AnimalForAdoption(animal.getId(), animal.getName());
+            animalPublisher.sendAnimalInfo(animalForAdoption);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
         return new AnimalsReponse(
                 animal.getId(),
                 animal.getName(),
@@ -62,6 +73,7 @@ public class AnimalsService {
                 animal.getClientName()
         );
     }
+
 
     public AnimalsReponse getAnimalsId(Long id){
         Animals animals = animalsRepository.findById(id)
