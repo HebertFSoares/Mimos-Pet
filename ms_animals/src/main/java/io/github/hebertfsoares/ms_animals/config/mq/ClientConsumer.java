@@ -23,12 +23,10 @@ public class ClientConsumer {
     public void receiveClientInfo(String payload) {
         try {
             DataClientMQ data = objectMapper.readValue(payload, DataClientMQ.class);
-            // Armazenar informações do cliente em um repositório local
             Client client = new Client(data.getId(), data.getName(), data.getCpf());
             clientRepository.save(client);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
-            // Adicionar log de erro apropriado
         }
     }
 }

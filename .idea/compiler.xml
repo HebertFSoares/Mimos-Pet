@@ -12,6 +12,10 @@
         <module name="msproduct" />
         <module name="ms_gateway" />
         <module name="ms_adoptions" />
+        <module name="ms_client" />
+        <module name="msproduct" />
+        <module name="ms_gateway" />
+        <module name="ms_adoptions" />
         <module name="ms_sales" />
         <module name="ms_client" />
         <module name="ms_produtos" />
@@ -19,6 +23,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="ms_produtos" target="21" />
+      <module name="ms_sales" target="21" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

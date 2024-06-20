@@ -1,12 +1,11 @@
 spring:
   application:
-    name: msanimals
+    name: mssales
   rabbitmq:
     host: localhost
     port: 5672
     username: guest
     password: guest
-
 
 server:
   port: 0
@@ -21,4 +20,4 @@ eureka:
 mq:
   queue:
     client_registration: client_registration_queue
-    animal_registration: animal_registration_queue
+    product_registration: product_registration_queue
