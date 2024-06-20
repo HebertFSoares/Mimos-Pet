@@ -9,10 +9,18 @@ import org.springframework.context.annotation.Configuration;
 public class MQConfig {
 
     @Value("${mq.queue.client_registration}")
-    private String nameQueue;
+    private String clientRegistrationQueue;
+
+    @Value("${mq.queue.product_registration}")
+    private String productRegistrationQueue;
 
     @Bean
-    public Queue queue(){
-     return new Queue(nameQueue,true);
+    public Queue clientRegistrationQueue() {
+        return new Queue(clientRegistrationQueue, true);
+    }
+
+    @Bean
+    public Queue productRegistrationQueue() {
+        return new Queue(productRegistrationQueue, true);
     }
 }

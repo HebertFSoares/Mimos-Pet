@@ -61,13 +61,4 @@ public class ProductController {
         return ResponseEntity.ok(clients);
     }
 
-    @PostMapping("/getClient")
-    public ResponseEntity solicitarClient(@RequestBody DataClientMQ dataClientMQ){
-        try{
-            ProtocoloGetClient protocoloGetClient = productService.getMsClient(dataClientMQ);
-            return ResponseEntity.ok(protocoloGetClient);
-        }catch (ErroSolicitacaoClientException e){
-            return ResponseEntity.internalServerError().body(e.getMessage());
-        }
-    }
 }

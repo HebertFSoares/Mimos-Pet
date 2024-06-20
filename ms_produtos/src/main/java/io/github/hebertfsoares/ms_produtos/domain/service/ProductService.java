@@ -1,7 +1,8 @@
 package io.github.hebertfsoares.ms_produtos.domain.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import feign.FeignException;
-import io.github.hebertfsoares.ms_produtos.config.mq.MsClientPublisher;
+import io.github.hebertfsoares.ms_produtos.config.mq.ProductPublisher;
 import io.github.hebertfsoares.ms_produtos.domain.entities.Clients;
 import io.github.hebertfsoares.ms_produtos.domain.entities.Product;
 import io.github.hebertfsoares.ms_produtos.domain.enums.ProductCategory;
@@ -26,7 +27,7 @@ public class ProductService {
 
     private final ProductRepository productRepository;
     private final ClientResource clientResource;
-    private final MsClientPublisher msClientPublisher;
+    private final ProductPublisher productPublisher;
 
     public ProductReponse saveProduct(ProductRequest productRequest){
         Product product = new Product(
@@ -40,6 +41,13 @@ public class ProductService {
         );
 
         Product savedProduct = productRepository.save(product);
+
+        try{
+            ProductForSales productForSales = new ProductForSales(savedProduct.getId(), savedProduct.getName());
+            productPublisher.sendProductInfo(productForSales);
+        } catch (JsonProcessingException e){
+            e.printStackTrace();
+        }
         return new ProductReponse(
                 savedProduct.getId(),
                 savedProduct.getName(),
@@ -122,13 +130,4 @@ public class ProductService {
         }
     }
 
-    public ProtocoloGetClient getMsClient(DataClientMQ dados){
-        try{
-            msClientPublisher.getClient(dados);
-            var protocolo = UUID.randomUUID().toString();
-            return new ProtocoloGetClient(protocolo);
-        }catch (Exception e){
-            throw new ErroSolicitacaoClientException(e.getMessage());
-        }
-    }
 }

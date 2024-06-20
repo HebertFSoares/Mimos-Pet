@@ -25,4 +25,5 @@ jwt:
 
 mq:
   queue:
-    ms_client: ms_client
+    client_registration: client_registration_queue
+    product_registration: product_registration_queue
