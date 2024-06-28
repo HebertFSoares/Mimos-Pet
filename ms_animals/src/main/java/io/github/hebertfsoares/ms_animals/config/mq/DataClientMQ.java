@@ -7,5 +7,4 @@ import lombok.*;
 public class DataClientMQ {
     private Long id;
     private String name;
-    private String cpf;
 }

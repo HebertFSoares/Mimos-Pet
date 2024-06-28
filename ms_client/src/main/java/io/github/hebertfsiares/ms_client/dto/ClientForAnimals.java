@@ -1,4 +1,15 @@
 package io.github.hebertfsiares.ms_client.dto;
 
-public record ClientForAnimals(Long id, String name, String cpf) {
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class ClientForAnimals {
+    private Long id;
+    private String name;
 }

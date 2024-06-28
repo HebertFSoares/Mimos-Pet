@@ -1,9 +1,10 @@
 package io.github.hebertfsiares.ms_client.web;
 
-import io.github.hebertfsiares.ms_client.domain.enums.roleClient;
 import io.github.hebertfsiares.ms_client.domain.repository.ClientRepository;
 import io.github.hebertfsiares.ms_client.dto.LoginRequest;
 import io.github.hebertfsiares.ms_client.dto.LoginResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,10 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.Instant;
 import java.util.Collections;
-import java.util.List;
 
 @RestController
 @RequestMapping("clients")
+@Tag(name = "Login Controller", description = "Endpoints for login client")
 public class TokenController {
 
     private final JwtEncoder jwtEncoder;
@@ -34,6 +35,7 @@ public class TokenController {
     }
 
     @PostMapping("/login")
+    @Operation(summary = "Client Login", description = "Authenticates a client and provides a token")
     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
         var client = clientRepository.findByEmail(loginRequest.email());
 

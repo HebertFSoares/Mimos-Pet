@@ -14,15 +14,14 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class ClientConsumer {
-
     private static final Logger logger = LoggerFactory.getLogger(ClientConsumer.class);
     private final ObjectMapper objectMapper;
     private final ClientRepository clientRepository;
 
-    @RabbitListener(queues = "${mq.queue.client_registration}")
+    @RabbitListener(queues = "${mq.queue.sales_ms_registration}")
     public void receiveClientInfo(String payload) {
         try {
-            logger.info("Received message: {}", payload);
+            logger.info("Received message in mssales: {}", payload);
             ClientForSales data = objectMapper.readValue(payload, ClientForSales.class);
             Client client = new Client(data.getId(), data.getName());
             clientRepository.save(client);

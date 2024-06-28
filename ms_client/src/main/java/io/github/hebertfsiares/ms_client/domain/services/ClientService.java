@@ -34,7 +34,7 @@ public class ClientService {
         Client savedClient = clientRepository.save(client);
 
         try {
-            ClientForAnimals clientForAnimals = new ClientForAnimals(savedClient.getId(), savedClient.getName(), savedClient.getCpf());
+            ClientForAnimals clientForAnimals = new ClientForAnimals(savedClient.getId(), savedClient.getName());
             clientPublisher.sendClientInfo(clientForAnimals);
         } catch (JsonProcessingException e) {
             e.printStackTrace();

@@ -13,10 +13,9 @@ server:
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: http://eureka-petshop:petshop-eureka@localhost:8761/eureka
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
-
 
 jwt:
   public:
@@ -27,3 +26,15 @@ jwt:
 mq:
   queue:
     client_registration: client_registration_queue
+  exchange:
+    client_registration: new_client_registration_fanout_exchange
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+logging:
+  file:
+    name: ./logs/log-file.log

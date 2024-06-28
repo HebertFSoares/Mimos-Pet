@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class ClientConsumer {
-
     private static final Logger logger = LoggerFactory.getLogger(ClientConsumer.class);
     private final ObjectMapper objectMapper;
     private final ClientRepository clientRepository;
@@ -22,10 +21,11 @@ public class ClientConsumer {
     @RabbitListener(queues = "${mq.queue.client_registration}")
     public void receiveClientInfo(String payload) {
         try {
-            logger.info("Received message: {}", payload);
+            logger.info("Received message in msadoptions: {}", payload);
             ClientForAnimals data = objectMapper.readValue(payload, ClientForAnimals.class);
-            Client client = new Client(data.getId(), data.getName(), data.getCpf());
+            Client client = new Client(data.getId(), data.getName());
             clientRepository.save(client);
+            logger.info("Client saved: {}", client);
         } catch (JsonProcessingException e) {
             logger.error("Error processing message", e);
         }
