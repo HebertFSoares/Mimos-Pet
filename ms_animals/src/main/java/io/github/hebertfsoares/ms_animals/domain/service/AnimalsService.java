@@ -45,7 +45,6 @@ public class AnimalsService {
         animal.setHistory(animalsRequest.history());
         animal.setClientId(client.getId());
         animal.setClientName(client.getName());
-        animal.setClientCpf(client.getCpf());
 
         animalsRepository.save(animal);
 

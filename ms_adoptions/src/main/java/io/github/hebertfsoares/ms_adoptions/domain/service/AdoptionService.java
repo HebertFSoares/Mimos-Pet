@@ -9,21 +9,32 @@ import io.github.hebertfsoares.ms_adoptions.domain.repository.ClientRepository;
 import io.github.hebertfsoares.ms_adoptions.dto.AdoptionResponse;
 import io.github.hebertfsoares.ms_adoptions.dto.AdptionRequest;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class AdoptionService {
 
+    private static final Logger logger = LoggerFactory.getLogger(AdoptionService.class);
+
     private final AdoptionRepository adoptionRepository;
     private final AnimalRepository animalRepository;
     private final ClientRepository clientRepository;
 
     public AdoptionResponse adopt(AdptionRequest adoptionRequest) {
+        logger.info("Adoption request received: {}", adoptionRequest);
         Animal animal = animalRepository.findById(adoptionRequest.getAnimalId())
-                .orElseThrow(() -> new RuntimeException("Animal not found"));
+                .orElseThrow(() -> {
+                    logger.error("Animal not found for ID: {}", adoptionRequest.getAnimalId());
+                    return new RuntimeException("Animal not found");
+                });
         Client client = clientRepository.findById(adoptionRequest.getClientId())
-                .orElseThrow(() -> new RuntimeException("Client not found"));
+                .orElseThrow(() -> {
+                    logger.error("Client not found for ID: {}", adoptionRequest.getClientId());
+                    return new RuntimeException("Client not found");
+                });
 
         Adoption adoption = new Adoption();
         adoption.setAnimalId(adoptionRequest.getAnimalId());
@@ -33,6 +44,7 @@ public class AdoptionService {
         adoption.setClientName(client.getName());
 
         adoptionRepository.save(adoption);
+        logger.info("Adoption saved: {}", adoption);
 
         return new AdoptionResponse(
                 adoption.getId(),

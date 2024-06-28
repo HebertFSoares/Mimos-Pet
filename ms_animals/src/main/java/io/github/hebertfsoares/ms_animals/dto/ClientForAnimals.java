@@ -1,9 +1,8 @@
-package io.github.hebertfsoares.ms_adoptions.dto;
+package io.github.hebertfsoares.ms_animals.dto;
 
 import lombok.*;
 
-@Getter
-@Setter
+@Getter @Setter
 public class ClientForAnimals {
     private Long id;
     private String name;
