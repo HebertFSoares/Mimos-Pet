@@ -2,7 +2,7 @@ spring:
   application:
     name: mssales
   rabbitmq:
-    host: localhost
+    host: rabbitmq
     port: 5672
     username: guest
     password: guest
@@ -13,7 +13,8 @@ server:
 eureka:
   client:
     service-url:
-      defaultZone: http://eureka-petshop:petshop-eureka@localhost:8761/eureka
+      defaultZone: http://eureka-petshop:petshop-eureka@eurekaserver:8761/eureka
+    server-connection-timeout-seconds: 10
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
 

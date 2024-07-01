@@ -3,7 +3,7 @@ spring:
     name: eurekaserver
   security:
     basic:
-      enable: true
+      enabled: true
     user:
       name: eureka-petshop
       password: petshop-eureka

@@ -1,0 +1,68 @@
+version: '3'
+services:
+  eurekaserver:
+    image: eurekaserver:latest
+    container_name: eurekaserver
+    ports:
+      - "8761:8761"
+    networks:
+      - petshop-network
+    restart: always
+
+  rabbitmq:
+    image: rabbitmq:3.13-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - petshop-network
+    restart: always
+
+  msclient:
+    image: msclient:latest
+    container_name: msclient
+    networks:
+      - petshop-network
+    restart: always
+
+  msadoption:
+    image: msadoption:latest
+    container_name: msadoption
+    networks:
+      - petshop-network
+    restart: always
+
+  msanimals:
+    image: msanimals:latest
+    container_name: msanimals
+    networks:
+      - petshop-network
+    restart: always
+
+  msproduct:
+    image: msproducts:latest
+    container_name: msproduct
+    networks:
+      - petshop-network
+    restart: always
+
+  mssales:
+    image: mssales:latest
+    container_name: mssales
+    networks:
+      - petshop-network
+    restart: always
+
+  msgateway:
+    image: msgateway:latest
+    container_name: msgateway
+    ports:
+      - "8080:8080"
+    networks:
+      - petshop-network
+    restart: always
+
+networks:
+  petshop-network:
+    driver: bridge
