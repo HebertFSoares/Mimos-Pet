@@ -21,7 +21,6 @@
 ![Docker][Docker]
 ![Git][Git]
 ![Swagger][Swagger]
-![Postman][Postman]
 
 <p align="center">
  <a href="#getting-started">Começando</a> • 
