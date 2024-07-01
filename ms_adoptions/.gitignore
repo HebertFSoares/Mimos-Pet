@@ -39,3 +39,8 @@ heko.md
 private.pem
 public.pem
 /
+
+target
+mvnw
+mvnw.cmd
+HELP.md
