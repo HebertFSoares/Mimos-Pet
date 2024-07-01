@@ -24,3 +24,9 @@ mq:
     product_registration: product_registration_queue
   exchange:
     client_registration: new_client_registration_fanout_exchange
+
+jwt:
+  public:
+    key: classpath:public.pem
+  private:
+    key: classpath:private.pem

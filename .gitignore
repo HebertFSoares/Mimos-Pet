@@ -24,3 +24,8 @@ hs_err_pid*
 replay_pid*
 /.idea
 /logs
+ms_adoptions/src/main/resources/private.pem
+ms_adoptions/src/main/resources/private.pem
+*.pem
+*.pem
+*.pem
