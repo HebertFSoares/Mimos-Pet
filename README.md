@@ -26,8 +26,9 @@
  <a href="#getting-started">Começando</a> • 
   <a href="#api-endpoints">Endpoints</a> •
  <a href="#microservices">Microservices</a> •
- <a href="#tecnologias">Tecnologias</a> •
- <a href="#comunicacao">Comunicação</a>
+ <a href="#comunicacao">Comunicação</a> •
+ <a href="#tecnologias">Tecnologias</a> 
+ 
  
 </p>
 
@@ -50,8 +51,8 @@
 Clone o repositório do projeto:
 
 ```bash
-git clone your-project-url-in-github
-cd project-name
+git clone git@github.com:HebertFSoares/Mimos-Pet.git
+cd Mimos-Pet
 mvn clean install
 docker-compose up
 ```
