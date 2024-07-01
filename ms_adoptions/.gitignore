@@ -35,3 +35,7 @@ build/
 mvnw
 mvnw.cmd
 heko.md
+
+private.pem
+public.pem
+/

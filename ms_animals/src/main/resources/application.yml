@@ -28,3 +28,9 @@ mq:
 logging:
   file:
     name: ./logs/log-file.log
+
+jwt:
+  public:
+    key: classpath:public.pem
+  private:
+    key: classpath:private.pem
