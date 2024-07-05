@@ -64,8 +64,9 @@ public class SalesServiceTest {
         when(clientRepository.findById(salesRequest.getClientId())).thenReturn(Optional.of(client));
         when(productRepository.findById(salesRequest.getProductId())).thenReturn(Optional.of(product));
 
+
         Sales savedSale = new Sales();
-        savedSale.setId(1L); 
+        savedSale.setId(1L);
         savedSale.setClientId(salesRequest.getClientId());
         savedSale.setProductId(salesRequest.getProductId());
         savedSale.setQuantity(salesRequest.getQuantity());

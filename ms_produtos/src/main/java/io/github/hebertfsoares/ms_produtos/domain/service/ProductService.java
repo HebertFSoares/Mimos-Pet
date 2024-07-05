@@ -7,7 +7,6 @@ import io.github.hebertfsoares.ms_produtos.domain.entities.Clients;
 import io.github.hebertfsoares.ms_produtos.domain.entities.Product;
 import io.github.hebertfsoares.ms_produtos.domain.enums.ProductCategory;
 import io.github.hebertfsoares.ms_produtos.domain.exception.DadosClientException;
-import io.github.hebertfsoares.ms_produtos.domain.exception.ErroSolicitacaoClientException;
 import io.github.hebertfsoares.ms_produtos.domain.exception.ErrorMicrosericeException;
 import io.github.hebertfsoares.ms_produtos.domain.infra.clients.ClientResource;
 import io.github.hebertfsoares.ms_produtos.domain.repository.ProductRepository;
@@ -18,7 +17,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -111,23 +109,6 @@ public class ProductService {
             throw new RuntimeException("Product not found");
         }
         productRepository.deleteById(id);
-    }
-
-    public Clients getClient(String cpf) throws DadosClientException, ErrorMicrosericeException {
-        try {
-            ResponseEntity<DataClient> dadosClients = clientResource.getClientByCpf(cpf);
-            return Clients
-                    .builder()
-                    .client(dadosClients.getBody())
-                    .build();
-        } catch (FeignException.FeignClientException e) {
-            int status = e.status();
-            if(HttpStatus.NOT_FOUND.value() == status){
-                throw new DadosClientException();
-            }
-            throw new ErrorMicrosericeException(e.getMessage(), status);
-
-        }
     }
 
 }
