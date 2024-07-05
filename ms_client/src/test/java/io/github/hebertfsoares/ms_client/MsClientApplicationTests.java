@@ -1,4 +1,4 @@
-package io.github.hebertfsiares.ms_client;
+package io.github.hebertfsoares.ms_client;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
