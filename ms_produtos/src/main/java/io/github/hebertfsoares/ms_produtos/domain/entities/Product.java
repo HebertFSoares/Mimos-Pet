@@ -2,6 +2,7 @@ package io.github.hebertfsoares.ms_produtos.domain.entities;
 
 import io.github.hebertfsoares.ms_produtos.domain.enums.ProductCategory;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,6 +12,7 @@ import java.math.BigDecimal;
 @Entity
 @Getter @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
