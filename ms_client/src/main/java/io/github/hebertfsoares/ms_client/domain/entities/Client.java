@@ -1,14 +1,15 @@
-package io.github.hebertfsiares.ms_client.domain.entities;
+package io.github.hebertfsoares.ms_client.domain.entities;
 
 
-import io.github.hebertfsiares.ms_client.domain.enums.roleClient;
-import io.github.hebertfsiares.ms_client.dto.LoginRequest;
+import io.github.hebertfsoares.ms_client.domain.enums.roleClient;
+import io.github.hebertfsoares.ms_client.dto.LoginRequest;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Getter @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Client {
     @Id

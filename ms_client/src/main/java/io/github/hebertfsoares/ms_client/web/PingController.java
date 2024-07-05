@@ -1,4 +1,4 @@
-package io.github.hebertfsiares.ms_client.web;
+package io.github.hebertfsoares.ms_client.web;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

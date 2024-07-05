@@ -1,11 +1,14 @@
-package io.github.hebertfsiares.ms_client.domain.services;
+package io.github.hebertfsoares.ms_client.domain.services;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import io.github.hebertfsiares.ms_client.config.mq.ClientPublisher;
-import io.github.hebertfsiares.ms_client.domain.entities.Client;
-import io.github.hebertfsiares.ms_client.domain.enums.roleClient;
-import io.github.hebertfsiares.ms_client.domain.repository.ClientRepository;
-import io.github.hebertfsiares.ms_client.dto.*;
+import io.github.hebertfsoares.ms_client.config.mq.ClientPublisher;
+import io.github.hebertfsoares.ms_client.domain.entities.Client;
+import io.github.hebertfsoares.ms_client.domain.enums.roleClient;
+import io.github.hebertfsoares.ms_client.domain.repository.ClientRepository;
+import io.github.hebertfsoares.ms_client.dto.ClientForAnimals;
+import io.github.hebertfsoares.ms_client.dto.ClientRequest;
+import io.github.hebertfsoares.ms_client.dto.ClientResponse;
+import io.github.hebertfsoares.ms_client.dto.ClientUpdateRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -92,7 +95,6 @@ public class ClientService {
         client.setCpf(clientUpdateRequest.cpf());
         client.setAddress(clientUpdateRequest.address());
         client.setPhone(clientUpdateRequest.phone());
-        client.setRole(clientUpdateRequest.role());
 
         Client updatedClient = clientRepository.save(client);
 

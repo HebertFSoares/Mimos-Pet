@@ -1,4 +1,4 @@
-package io.github.hebertfsiares.ms_client.config;
+package io.github.hebertfsoares.ms_client.config;
 
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;

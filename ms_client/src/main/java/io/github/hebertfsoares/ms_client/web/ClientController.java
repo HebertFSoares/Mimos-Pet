@@ -1,9 +1,9 @@
-package io.github.hebertfsiares.ms_client.web;
+package io.github.hebertfsoares.ms_client.web;
 
-import io.github.hebertfsiares.ms_client.domain.services.ClientService;
-import io.github.hebertfsiares.ms_client.dto.ClientRequest;
-import io.github.hebertfsiares.ms_client.dto.ClientResponse;
-import io.github.hebertfsiares.ms_client.dto.ClientUpdateRequest;
+import io.github.hebertfsoares.ms_client.domain.services.ClientService;
+import io.github.hebertfsoares.ms_client.dto.ClientRequest;
+import io.github.hebertfsoares.ms_client.dto.ClientResponse;
+import io.github.hebertfsoares.ms_client.dto.ClientUpdateRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;

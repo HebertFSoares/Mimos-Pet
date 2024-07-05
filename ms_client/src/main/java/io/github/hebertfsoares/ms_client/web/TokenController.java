@@ -1,8 +1,8 @@
-package io.github.hebertfsiares.ms_client.web;
+package io.github.hebertfsoares.ms_client.web;
 
-import io.github.hebertfsiares.ms_client.domain.repository.ClientRepository;
-import io.github.hebertfsiares.ms_client.dto.LoginRequest;
-import io.github.hebertfsiares.ms_client.dto.LoginResponse;
+import io.github.hebertfsoares.ms_client.domain.repository.ClientRepository;
+import io.github.hebertfsoares.ms_client.dto.LoginRequest;
+import io.github.hebertfsoares.ms_client.dto.LoginResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
