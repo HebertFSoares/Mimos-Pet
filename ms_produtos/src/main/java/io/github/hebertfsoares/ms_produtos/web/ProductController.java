@@ -63,11 +63,4 @@ public class ProductController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/clients/{cpf}")
-    @Operation(summary = "Query Client", description = "Consult customer information")
-    public ResponseEntity<Clients> queryClient(@PathVariable String cpf) throws DadosClientException, ErrorMicrosericeException {
-        Clients clients = productService.getClient(cpf);
-        return ResponseEntity.ok(clients);
-    }
-
 }
