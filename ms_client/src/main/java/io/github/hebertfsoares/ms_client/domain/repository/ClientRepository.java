@@ -1,6 +1,6 @@
-package io.github.hebertfsiares.ms_client.domain.repository;
+package io.github.hebertfsoares.ms_client.domain.repository;
 
-import io.github.hebertfsiares.ms_client.domain.entities.Client;
+import io.github.hebertfsoares.ms_client.domain.entities.Client;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

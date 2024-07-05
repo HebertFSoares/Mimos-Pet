@@ -1,8 +1,8 @@
-package io.github.hebertfsiares.ms_client.config.mq;
+package io.github.hebertfsoares.ms_client.config.mq;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.github.hebertfsiares.ms_client.dto.ClientForAnimals;
+import io.github.hebertfsoares.ms_client.dto.ClientForAnimals;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

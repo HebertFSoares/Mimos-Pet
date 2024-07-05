@@ -1,4 +1,4 @@
-package io.github.hebertfsiares.ms_client.dto;
+package io.github.hebertfsoares.ms_client.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
