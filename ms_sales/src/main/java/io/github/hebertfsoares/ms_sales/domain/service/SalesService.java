@@ -32,18 +32,18 @@ public class SalesService {
         sale.setAmount(salesRequest.getAmount());
         sale.setPayment(salesRequest.getPayment());
 
-        salesRepository.save(sale);
+        Sales savedSale = salesRepository.save(sale);
 
         return new SalesResponse(
-                sale.getId(),
-                sale.getProductId(),
+                savedSale.getId(),
+                savedSale.getProductId(),
                 product.getName(),
-                sale.getClientId(),
+                savedSale.getClientId(),
                 client.getName(),
-                sale.getDateSale(),
-                sale.getQuantity(),
-                sale.getAmount(),
-                sale.getPayment()
+                savedSale.getDateSale(),
+                savedSale.getQuantity(),
+                savedSale.getAmount(),
+                savedSale.getPayment()
         );
     }
 }
